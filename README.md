@@ -1,25 +1,31 @@
 # Development
 
-Your new bare-bones project includes minimal organization with a single `main.rs` file and a few assets.
+hola, disclaimer, este mini tutorial es solo para Arch linux 86_64.
+si tienes windows u o mac u otra distribucion [clickea aca.](https://dioxuslabs.com/learn/0.6/getting_started/#platform-specific-dependencies)
 
+Antes de siquiera hacer algo, necesitaran estas dependencias para el OS:
 ```
-project/
-├─ assets/ # Any assets that are used by the app should be placed here
-├─ src/
-│  ├─ main.rs # main.rs is the entry point to your application and currently contains all components for the app
-├─ Cargo.toml # The Cargo.toml file defines the dependencies and feature flags for your project
+sudo pacman -Syu
+sudo pacman -S --needed \
+  webkit2gtk-4.1 \
+  base-devel \
+  curl \
+  wget \
+  file \
+  openssl \
+  appmenu-gtk-module \
+  libappindicator-gtk3 \
+  librsvg \
+  xdotool
 ```
 
-### Serving Your App
+Para usarla tienes que tener la ultima version de rustup junto con cargo.
+(`rustup --version` y `cargo --version`).
 
-Run the following command in the root of your project to start developing with the default platform:
+tiene algunos crates para hacer fetching:
+`cargo add reqwest --features json`
+`cargo add serde --features derive`
 
-```bash
-dx serve
-```
-
-To run for a different platform, use the `--platform platform` flag. E.g.
-```bash
-dx serve --platform desktop
-```
+Ahora para tener los "target" solo tienen que usar: 
+`dx serve --platform web`
 
