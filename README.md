@@ -23,9 +23,11 @@ Para usarla tienes que tener la ultima version de rustup junto con cargo.
 (`rustup --version` y `cargo --version`).
 
 tiene algunos crates para hacer fetching:
+
 `cargo add reqwest --features json`
 `cargo add serde --features derive`
 
 Ahora para tener los "target" solo tienen que usar: 
+
 `dx serve --platform web`
 
