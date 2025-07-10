@@ -31,3 +31,6 @@ Ahora para tener los "target" solo tienen que usar:
 
 `dx serve --platform web`
 
+
+WORK IN PROCESS, traten esto solo como una prueba de la tecnologia. El producto mostrado aca no tiene nada que ver con el que sera el final.
+
