@@ -38,4 +38,7 @@ Ahora para tener los "target" solo tienen que usar:
 
 # WORK IN PROCESS 
 Traten esto solo como una prueba de la tecnologia. El producto mostrado aca no tiene nada que ver con el que sera el final.
+# 12 de julio
+Estoy pensando en implementar una api con ia para poder tener respuestas con rango de porcentaje de exito.
+[Mistral ai](https://docs.mistral.ai/api/#tag/classifiers/operation/moderations_v1_moderations_post)
 
