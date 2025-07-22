@@ -26,28 +26,32 @@ fn main() {
 
 #[component]
 fn App() -> Element {
-    use_context_provider(|| TitleState("HotDog".to_string()));
+//    use_context_provider(|| TitleState("HotDog".to_string()));
     rsx! {
         document::Stylesheet { href: CSS }
-        Title {}
         Router::<Route> {}
     }
 }
 /// An enum of all of the possible routes in the app.
-
-
-#[derive(Routable, Clone)]
+#[derive(Routable, PartialEq, Clone)]
+#[rustfmt::skip]
 enum Route {
-    // The home page is at the / route
-    #[route("/")]
-    DogView {},
-    // PageNotFound is a catch all route that will match any route and placing the matched segments in the route field
+    // All routes under the NavBar layout will be rendered inside of the NavBar Outlet
+    #[layout(NavBar)]
+        #[route("/")]
+        DogView {},
+        #[route("/favorites")]
+        Favorites {}, // <------ add this new variant
+    #[end_layout]
     #[route("/:..route")]
     PageNotFound { route: Vec<String> },
+
+
 }
 
 #[component]
 fn DogView() -> Element { 
+    
     let mut img_src = use_resource(|| async move {
         reqwest::get("https://dog.ceo/api/breeds/image/random")
             .await
@@ -58,6 +62,8 @@ fn DogView() -> Element {
     });    
 
     rsx! {
+        
+        //Title {}
         div { id: "dogview",
             img { src: img_src.cloned().unwrap_or_default() }
         }
@@ -83,7 +89,7 @@ fn PageNotFound(route: Vec<String>) -> Element {
         pre { color: "red", "log:\nattemped to navigate to: {route:?}" }
     }
 }
-
+/*
 #[derive(Clone)]
 struct TitleState(String);
 
@@ -97,7 +103,7 @@ fn Title() -> Element {
     }
 }
 
-
+*/
 
 //DESDE ACA PARA ABAJO ES BACKEND
 // on the client:
