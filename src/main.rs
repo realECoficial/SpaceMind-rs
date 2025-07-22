@@ -7,7 +7,6 @@ mod backend;
 use crate::components::*;
 use crate::backend::*;
 
-//#[derive(Routable, Clone)]
 //mod guide_backend;
 //TODO hacer que el backend este en otro .rs!!!
 static CSS: Asset = asset!("/assets/main.css");
@@ -31,19 +30,21 @@ fn App() -> Element {
     rsx! {
         document::Stylesheet { href: CSS }
         Title {}
-        //Router::<Route> {},
-        DogView {} 
+        Router::<Route> {}
     }
 }
-/*
 /// An enum of all of the possible routes in the app.
-#[derive(Clone)]
+
+
+#[derive(Routable, Clone)]
 enum Route {
     // The home page is at the / route
     #[route("/")]
     DogView {},
+    // PageNotFound is a catch all route that will match any route and placing the matched segments in the route field
+    #[route("/:..route")]
+    PageNotFound { route: Vec<String> },
 }
-*/
 
 #[component]
 fn DogView() -> Element { 
@@ -74,7 +75,14 @@ fn DogView() -> Element {
         }
     }    
 }
-
+#[component]
+fn PageNotFound(route: Vec<String>) -> Element {
+    rsx! {
+        h1 { "Page not found" }
+        p { "We are terribly sorry, but the page you requested doesn't exist." }
+        pre { color: "red", "log:\nattemped to navigate to: {route:?}" }
+    }
+}
 
 #[derive(Clone)]
 struct TitleState(String);
@@ -88,6 +96,8 @@ fn Title() -> Element {
         h1 { "{title.0}" }
     }
 }
+
+
 
 //DESDE ACA PARA ABAJO ES BACKEND
 // on the client:
