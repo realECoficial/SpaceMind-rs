@@ -1,7 +1,13 @@
 #![allow(non_snake_case)]
 
 use dioxus::prelude::*;
+mod components;
+mod backend;
 
+use crate::components::*;
+use crate::backend::*;
+
+//#[derive(Routable, Clone)]
 //mod guide_backend;
 //TODO hacer que el backend este en otro .rs!!!
 static CSS: Asset = asset!("/assets/main.css");
@@ -18,15 +24,26 @@ fn main() {
 }
 
 
+
 #[component]
 fn App() -> Element {
     use_context_provider(|| TitleState("HotDog".to_string()));
     rsx! {
         document::Stylesheet { href: CSS }
         Title {}
-        DogView {}
+        //Router::<Route> {},
+        DogView {} 
     }
 }
+/*
+/// An enum of all of the possible routes in the app.
+#[derive(Clone)]
+enum Route {
+    // The home page is at the / route
+    #[route("/")]
+    DogView {},
+}
+*/
 
 #[component]
 fn DogView() -> Element { 
@@ -74,23 +91,4 @@ fn Title() -> Element {
 
 //DESDE ACA PARA ABAJO ES BACKEND
 // on the client:
-
-#[server]
-async fn save_dog(image: String) -> Result<(), ServerFnError> {
-    use std::io::Write;
-
-    // Open the `dogs.txt` file in append-only mode, creating it if it doesn't exist;
-    let mut file = std::fs::OpenOptions::new()
-        .write(true)
-        .append(true)
-        .create(true)
-        .open("dogs.txt")
-        .unwrap();
-
-    // And then write a newline to it with the image url
-    file.write_fmt(format_args!("{image}\n"));
-
-    Ok(())
-}
-
 
